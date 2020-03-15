@@ -1,0 +1,135 @@
+<div class="row contenidor contenidor">
+  <div class="row cercador">
+    <div class="buscador">
+      <label><b>BUSCA LA RECEPTA:</b></label>
+      <input type="text" class="form-control" placeholder="Escriu aqui" style="width: 300px;" [(ngModel)]="searchTerm" />
+    </div>
+    <div class="selectOrder">
+      <label><b>ORGANITZAR:</b></label>
+      <select name="ordre" [(ngModel)]="ordre" class="form-control" >
+        <option disabled>Ordenar per ...</option>
+        <option value="asc">Nom Ascendent</option>
+        <option value="desc">Nom Descendent</option>
+        <option value="ingAsc">Ingredients Ascendent</option>
+        <option value="ingDesc">Ingredients Descendent</option>
+      </select>
+    </div>
+    <div class="funcioOrder">
+      <button class="btn btn-success" (click)="ordenar()"> ORDENAR </button>
+    </div>
+  </div>
+</div>
+<div class="row contenidor">
+    <div class="col-md-7 col-lg-7 receptas">
+        <h5>Receptes</h5>
+        <div *ngFor="let recepta of receptasComp | ReceptaFiltre:searchTerm" class="recepta">
+            <div>
+                <h4>{{recepta.nombre}}</h4>
+                <p><b>Ingredients: </b>{{recepta.ingredients}}</p>
+                <ul class="nav nav-pills mb-3" id="pills-tab{{recepta.id}}" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab{{recepta.id}}" data-toggle="pill" href="#pills-home{{recepta.id}}" role="tab" aria-controls="pills-home" aria-selected="true">Detalls</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab{{recepta.id}}" data-toggle="pill" href="#pills-profile{{recepta.id}}" role="tab" aria-controls="pills-profile" aria-selected="false">Comentaris</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab{{recepta.id}}" data-toggle="pill" href="#pills-contact{{recepta.id}}" role="tab" aria-controls="pills-contact" aria-selected="false">Posa Comentari</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                  <div class="tab-pane fade show active" id="pills-home{{recepta.id}}" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <h6>Pasos per realitzar-la</h6>
+                    <p>{{recepta.pasos}}</p>
+                  </div>
+                  <div class="tab-pane fade" id="pills-profile{{recepta.id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <h5>Comentaris</h5>
+                    <div class="card comentari" *ngFor="let comentari of recepta.comentaris">
+                      <p><b>{{comentari.stars}} estrelles</b></p>
+                      <p>{{comentari.review}}</p>
+                      <p>{{comentari.dia | date:'MMMM dd, y'}}</p>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="pills-contact{{recepta.id}}" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <div class="comForm">
+                      <form>
+                        <h5>Que dius?</h5>
+                        <div class="form-group">
+                          <label>Estrelles</label>
+                          <select name="stars" [(ngModel)]="comentari.stars" class="form-control" required>
+                            <option value="1">1 estrella</option>
+                            <option value="2">2 estrelles</option>
+                            <option value="3">3 estrelles</option>
+                            <option value="4">4 estrelles</option>
+                            <option value="5">5 estrelles</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label>Comentans el per que:</label>
+                          <input type="text" [(ngModel)]="comentari.review" #review="ngModel" class="form-control" name="review" required>
+                          <div *ngIf="review.invalid && (review.dirty || review.touched)" class="alert alert-danger">
+    
+                            <div *ngIf="review.errors.required">
+                                Necesites escriure per poder crear el comentari.
+                            </div>
+    
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-success" (click)="addComentari(recepta.id)">Submit</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+            </div>
+    </div>
+  </div>
+    <div class="col-md-4 col-lg-4 afReceptas">
+        <h5>Nova Recepta</h5>
+        <form>
+          <div class="form-group">
+            <label>Nom Recepta</label>
+            <input type="text" [(ngModel)]="receptasForm.nombre" class="form-control" name="nombre" required>
+            <div *ngIf="comprovarNomRecepta(receptasForm.nombre)==false"  class="alert alert-danger">
+              La recepta que intentas introduir ja esta creada...
+            </div>
+          </div>
+    
+          <div class="form-group">
+            <label>Ingredients</label>
+            <input type="text" class="form-control" [(ngModel)]="receptasForm.ingredients" #ingredients="ngModel" name="ingredients"  required minlength="10">
+            <div *ngIf="ingredients.invalid && (ingredients.dirty || ingredients.touched)" class="alert alert-danger">
+
+              <div *ngIf="ingredients.errors.required">
+                Name is required.
+              </div>
+              <div *ngIf="ingredients.errors.minlength">
+                No s'arriba al minim de caracters (10)...
+              </div>
+
+            </div>
+          </div>
+    
+          <div class="form-group">
+              <label>Descripcio</label>
+              <input type="text" class="form-control" [(ngModel)]="receptasForm.pasos" #pasos="ngModel" name="pasos" required minlength="15">
+              <div *ngIf="pasos.invalid && (pasos.dirty || pasos.touched)" class="alert alert-danger">
+
+                <div *ngIf="pasos.errors.required">
+                  Name is required.
+                </div>
+                <div *ngIf="pasos.errors.minlength">
+                  No s'arriba al minim de caracters (15)...
+                </div>
+  
+              </div>
+          </div>
+
+          <button type="submit" class="btn btn-success" (click)="addRecepta()" *ngIf="receptasForm.nombre && receptasForm.ingredients && receptasForm.pasos; else desactivar">Submit</button>
+          <ng-template #desactivar> 
+            <button type="submit" class="btn btn-success" (click)="addRecepta()" disabled>Crear Recepta</button>
+            <br>
+            <label>Has de emplenar tots els camps</label>
+          </ng-template>
+        </form>
+    </div>
+</div>

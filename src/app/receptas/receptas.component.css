@@ -1,0 +1,56 @@
+.contenidor{
+    background-color: lightblue;
+}
+.receptas{
+    margin-left: 2%;
+    margin-right: 2%;
+    border: 1px solid black;
+    background: white;
+    border-radius: 8px;
+}
+
+.afReceptas{
+    margin-left: 2%;
+    margin-right: 2%;
+    border: 1px solid black;
+    background: white;
+    border-radius: 8px;
+    height: 520px;
+}
+
+.afReceptas > form{
+    margin-top:20px;
+}
+
+.recepta{
+    margin-top: 5%;
+}
+.comentari{
+    margin: 1%;
+    padding: 15px;
+}
+
+.cercador{
+    margin: auto;
+    margin-bottom: 1%;
+    border: 1px solid black;
+    background: white;
+    border-radius: 8px;
+    height: 100px;   
+    width: 80%;
+    padding: 0.5%;
+}
+
+.buscador{
+    margin-left: 1%;
+    margin: auto;
+}
+
+.selectOrder{
+    margin-left: 5%;
+    margin: auto;
+}
+
+.funcioOrder{
+    margin: auto;
+}
