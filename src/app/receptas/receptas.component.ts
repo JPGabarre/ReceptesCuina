@@ -18,6 +18,7 @@ export class ReceptasComponent implements OnInit {
   receptasComp=receptas;
 
   ngOnInit(): void {
+    //Aquesta funcio fa que substituim l'array de receptesComp per la que tenim a la base de dades del json-server
     axios.get('http://localhost:3000/receptes')
             .then(resp => {
                 var data = resp.data;

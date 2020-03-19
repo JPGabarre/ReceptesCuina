@@ -28,14 +28,8 @@
         {
           "id": 1,
           "stars": 5,
-          "review": "M'encata aquesta recepta",
-          "dia": 1397490980837
-        },
-        {
-          "stars": "5",
-          "review": "Aqui estamos",
-          "id": 3,
-          "dia": "2020-03-19T17:58:58.323Z"
+          "body": "M'encata aquesta recepta",
+          "createdOn": 1397490980837
         }
       ],
       "id": "2"
