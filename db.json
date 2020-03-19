@@ -1,0 +1,44 @@
+{
+  "receptes": [
+    {
+      "nom": "Vedella amb bolets",
+      "elaboracio": "Si el que voleu es oferir un plat de qualitat, cal que quan aneu a comprar la vedella, sigui Llata, Geret ò també Filet de pobre.",
+      "ingredients": "1/2 Vedella, 1kg de bolets, 1 ceba, 1 tomàquet, sal, all, julivert",
+      "reviews": [
+        {
+          "id": 1,
+          "stars": 5,
+          "body": "M'encata aquesta recepta",
+          "createdOn": 1397490980837
+        },
+        {
+          "id": 2,
+          "stars": 3,
+          "body": "Mmmmmmm",
+          "createdOn": 1397490980837
+        }
+      ],
+      "id": "1"
+    },
+    {
+      "nom": "Risotto de ceps",
+      "elaboracio": "Preparar els ceps. Netejar-los per a que no hi quedi sorra. Picar la ceba ben fina i sofregir-la sense que arribi a torrar-se.",
+      "ingredients": "320gr d'arros, ceps, 150gr formatge parmesà rallat, 1 ceba, 50gr mantega",
+      "reviews": [
+        {
+          "id": 1,
+          "stars": 5,
+          "review": "M'encata aquesta recepta",
+          "dia": 1397490980837
+        },
+        {
+          "stars": "5",
+          "review": "Aqui estamos",
+          "id": 3,
+          "dia": "2020-03-19T17:58:58.323Z"
+        }
+      ],
+      "id": "2"
+    }
+  ]
+}

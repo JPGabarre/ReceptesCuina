@@ -25,7 +25,6 @@
         <div *ngFor="let recepta of receptasComp | ReceptaFiltre:searchTerm" class="recepta">
             <div>
                 <h4>{{recepta.nombre}}</h4>
-                <p><b>Ingredients: </b>{{recepta.ingredients}}</p>
                 <ul class="nav nav-pills mb-3" id="pills-tab{{recepta.id}}" role="tablist">
                   <li class="nav-item">
                     <a class="nav-link active" id="pills-home-tab{{recepta.id}}" data-toggle="pill" href="#pills-home{{recepta.id}}" role="tab" aria-controls="pills-home" aria-selected="true">Detalls</a>
@@ -39,6 +38,7 @@
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                   <div class="tab-pane fade show active" id="pills-home{{recepta.id}}" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <p><b>Ingredients: </b>{{recepta.ingredients}}</p>
                     <h6>Pasos per realitzar-la</h6>
                     <p>{{recepta.pasos}}</p>
                   </div>
@@ -80,6 +80,56 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="edits">
+                  <div *ngIf="recepta.edit; else perDefecte">
+                    <form>
+                      <div class="form-group">
+                        <label>Ingredients</label>
+                        <input type="text" class="form-control" [(ngModel)]="receptasEdit.ingredients" #ingredients="ngModel" name="ingredients"  required minlength="10" value="{{recepta.ingredients}}">
+                        <div *ngIf="ingredients.invalid && (ingredients.dirty || ingredients.touched)" class="alert alert-danger">
+
+                          <div *ngIf="ingredients.errors.required">
+                            No pot estar vuit.
+                          </div>
+                          <div *ngIf="ingredients.errors.minlength">
+                            No s'arriba al minim de caracters (10)...
+                          </div>
+
+                        </div>
+                      </div>
+                
+                      <div class="form-group">
+                          <label>Descripcio</label>
+                          <input type="text" class="form-control" [(ngModel)]="receptasEdit.pasos" #pasos="ngModel" name="pasos" required minlength="15" value="{{recepta.pasos}}">
+                          <div *ngIf="pasos.invalid && (pasos.dirty || pasos.touched)" class="alert alert-danger">
+
+                            <div *ngIf="pasos.errors.required">
+                              No pot estar vuit.
+                            </div>
+                            <div *ngIf="pasos.errors.minlength">
+                              No s'arriba al minim de caracters (15)...
+                            </div>
+              
+                          </div>
+                      </div>
+                      <div class="row edits2">
+                        <button type="submit" class="btn btn-success" (click)="editar(recepta.id)" *ngIf="receptasEdit.ingredients && receptasEdit.pasos; else desactivar"><span class="glyphicon glyphicon-pencil"></span>Guardar</button>
+                        <ng-template #desactivar> 
+                          <button type="submit" class="btn btn-success" (click)="editar(recepta.id)" disabled>Guardar</button>
+                        </ng-template>
+                        <button class="btn btn-danger" (click)="canEdit(recepta.id)"><span class="glyphicon glyphicon-remove"></span>Cancelar</button>
+                      </div>
+                    </form>
+                  </div>
+                  <ng-template #perDefecte>
+                    <div class="row edits2">
+                      <button class="btn btn-warning" (click)="canEdit(recepta.id)"><span class="glyphicon glyphicon-pencil"></span>Editar</button>
+                      <button type="submit" class="btn btn-danger" (click)="eliminar(recepta.id)"><span class="glyphicon glyphicon-remove"></span>Eliminar</button>
+                    </div>
+                  </ng-template>
+                </div>
+
             </div>
     </div>
   </div>
@@ -100,7 +150,7 @@
             <div *ngIf="ingredients.invalid && (ingredients.dirty || ingredients.touched)" class="alert alert-danger">
 
               <div *ngIf="ingredients.errors.required">
-                Name is required.
+                No pot estar vuit.
               </div>
               <div *ngIf="ingredients.errors.minlength">
                 No s'arriba al minim de caracters (10)...
@@ -115,7 +165,7 @@
               <div *ngIf="pasos.invalid && (pasos.dirty || pasos.touched)" class="alert alert-danger">
 
                 <div *ngIf="pasos.errors.required">
-                  Name is required.
+                  No pot estar vuit.
                 </div>
                 <div *ngIf="pasos.errors.minlength">
                   No s'arriba al minim de caracters (15)...
