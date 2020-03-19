@@ -131,6 +131,7 @@ export class ReceptasComponent implements OnInit {
       console.log(this.receptasForm.id);
     }
 
+    //Aqui afegeixo una recepta a l'array de receptes de l'api
     axios.post('http://localhost:3000/receptes', {
       nom: this.receptasForm.nombre,
       elaboracio: this.receptasForm.pasos,
@@ -164,6 +165,7 @@ export class ReceptasComponent implements OnInit {
       }
     }
 
+    //Afegeixo un comentari a l'array de comentaris de les receptes de l'api
     axios.put('http://localhost:3000/receptes/'+id, {
       nom: this.receptasComp[id-1].nombre,
       elaboracio: this.receptasComp[id-1].pasos,
